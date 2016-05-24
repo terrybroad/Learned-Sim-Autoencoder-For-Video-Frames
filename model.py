@@ -160,7 +160,7 @@ class Autoencoder(object):
     
     def train(self, config):
         """Train AUTOENCODER"""
-        data = glob(os.path.join("./data", config.dataset, "*.png"))
+        data = glob(os.path.join("./datasets", config.dataset, "*.png"))
 
         #RESPECTIVE OPTIMIZERS
         e_optim = tf.train.AdamOptimizer(config.learning_rate, beta1=config.beta1) \
@@ -197,7 +197,7 @@ class Autoencoder(object):
 
         #CYCLE THROUGH DATASET
         for epoch in xrange(config.epoch):
-            data = glob(os.path.join("./data", config.dataset, "*.png"))
+            data = glob(os.path.join("./datasets", config.dataset, "*.png"))
             batch_idxs = min(len(data), config.train_size)/config.batch_size
 
             for idx in xrange(0, batch_idxs):
@@ -244,16 +244,16 @@ class Autoencoder(object):
                     self.save(config.checkpoint_dir, counter)
 
                 #PRINT PROGRESS INFORMATION TO TERMINAL
-                print("Epoch: [%2d] [%4d/%4d] time: %4.4f, encoder loss: %.8f, decoder loss: %.8f , discriminator loss: %.8f, kl_div:  %.8f, likeness:  %.8f, mean noise: %.8f" \
+                print("Epoch: [%2d] [%4d/%4d] time: %4.4f, encoder loss: %.8f, decoder loss: %.8f , discriminator loss: %.8f, kl_div:  %.8f, likeness:  %.8f" \
                     % (epoch, idx, batch_idxs,
-                        time.time() - start_time, error_e, error_g, error_d, loss_kl, loss_likeness, mean_noise))
+                        time.time() - start_time, error_e, error_g, error_d, loss_kl, loss_likeness))
                 
                 counter += 1
 
     #RUN NETWORK WITHOUT TRAINING
     def run(self, config):
        """Train VAE"""
-       data = glob(os.path.join("../../../data", config.dataset, "*.png"))
+       data = glob(os.path.join("../../../datasets", config.dataset, "*.png"))
        
        tf.initialize_all_variables().run()
 
@@ -311,8 +311,8 @@ class Autoencoder(object):
            mean_noise = self.mean_eps.eval({ self.images: batch_images, self.pz: batch_z, self.noise_var: noise})
 
            
-           print("Outputing Batch [%6d/%6d] time_taken: %4.4f, frame_num: [%8d], time_in_film (mins): %6.4f, kl_div:  %.8f, likeness:  %.8f, mean noise: %.8f " \
-               % (idx, batch_idxs, time.time() - start_time, idx*self.batch_size, (self.batch_size/1440.0)*(idx+1), loss_kl, loss_likeness, mean_noise))
+           print("Outputing Batch [%6d/%6d] time_taken: %4.4f, frame_num: [%8d], time_in_film (mins): %6.4f, kl_div:  %.8f, likeness:  %.8f" \
+               % (idx, batch_idxs, time.time() - start_time, idx*self.batch_size, (self.batch_size/1440.0)*(idx+1), loss_kl, loss_likeness))
 
 
 

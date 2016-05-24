@@ -24,7 +24,7 @@ The output frames in sequence using an exisiting model:
 
     $ python main.py --dataset DATASETNAME --is_run True 
 
-Put the dataset in a directory called dataset within the code project file.
+Put the dataset directory in a directory called 'datasets' within the code project file.
 
 To turn a video into frames and frame into video you can use [ffmpeg](https://ffmpeg.org/)
 
