@@ -253,7 +253,7 @@ class Autoencoder(object):
     #RUN NETWORK WITHOUT TRAINING
     def run(self, config):
        """Train VAE"""
-       data = glob(os.path.join("../../../datasets", config.dataset, "*.png"))
+       data = glob(os.path.join("./datasets", config.dataset, "*.png"))
        
        tf.initialize_all_variables().run()
 
@@ -284,7 +284,7 @@ class Autoencoder(object):
            print(" [!] Load failed...")
 
        
-       data = sorted(glob(os.path.join("../../../data", config.dataset, "*.png")), key=numericalSort)
+       data = sorted(glob(os.path.join("./datasets", config.dataset, "*.png")), key=numericalSort)
        shuffle(data)
        batch_idxs = min(len(data), config.train_size)/config.batch_size
 
