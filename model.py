@@ -21,6 +21,7 @@ import tensorflow as tf
 
 from ops import *
 from utils import *
+from random import shuffle
 
 class Autoencoder(object):
     def __init__(self, sess, noise=1,image_size=256, is_crop=True,
@@ -198,6 +199,7 @@ class Autoencoder(object):
         #CYCLE THROUGH DATASET
         for epoch in xrange(config.epoch):
             data = glob(os.path.join("./datasets", config.dataset, "*.png"))
+            shuffle(data)
             batch_idxs = min(len(data), config.train_size)/config.batch_size
 
             for idx in xrange(0, batch_idxs):
@@ -285,7 +287,6 @@ class Autoencoder(object):
 
        
        data = sorted(glob(os.path.join("./datasets", config.dataset, "*.png")), key=numericalSort)
-       shuffle(data)
        batch_idxs = min(len(data), config.train_size)/config.batch_size
 
        for idx in xrange(0, batch_idxs):
