@@ -211,7 +211,7 @@ class Autoencoder(object):
                             .astype(np.float32)
 
                 #TRAIN AND SAMPLE INPUT BATCH AND RECONSTRUCTION
-                if np.mod(counter, 25) == 1:
+                if np.mod(counter, 1) == 0:
                     samples, _, __, ___, summary_e, summary_g, summary_d  = self.sess.run([self.G, e_optim, g_optim, d_optim, self.e_sum, self.g_sum, self.d_sum],
                         feed_dict={ self.images: batch_images, self.pz: batch_z, self.noise_var: noise} )
                     sample_images = samples
@@ -242,7 +242,7 @@ class Autoencoder(object):
                 mean_noise = self.mean_eps.eval({ self.images: batch_images, self.pz: batch_z, self.noise_var: noise})
 
                 #SAVE MODEL
-                if np.mod(counter, 500) == 2 and counter > 450:
+                if np.mod(counter, 500) == 2:
                     self.save(config.checkpoint_dir, counter)
 
                 #PRINT PROGRESS INFORMATION TO TERMINAL

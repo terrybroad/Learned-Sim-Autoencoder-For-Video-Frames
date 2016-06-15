@@ -24,6 +24,8 @@ The output frames in sequence using an exisiting model:
 
     $ python main.py --dataset DATASETNAME --is_run True 
 
+In this version of the code 1000 minibatches must be processed before a model is saved, and therefore can be used to output frames sequentailly. This can be edited in line 245 of model.py.
+
 Put the dataset directory in a directory called 'datasets' within the code project file.
 
 To turn a video into frames and frame into video you can use [ffmpeg](https://ffmpeg.org/)
